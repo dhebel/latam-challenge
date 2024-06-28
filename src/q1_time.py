@@ -7,33 +7,33 @@ import json
 
 #@memory_profiler.profile
 def q1_time(file_path: str) -> List[Tuple[datetime.date, str]]:
-    # Dictionary to store the count of tweets per date
+    # Diccionario para almacenar el conteo de tweets por fecha
     date_counts = Counter()
-    # Dictionary to store the count of tweets per user per date
+    # Diccionario para almacenar el conteo de tweets por usuario por fecha
     user_counts_by_date = defaultdict(Counter)
     
     with open(file_path, "r") as file:
         for line in file:
             tweet = json.loads(line)
-            # Get the date and username
+            # Obtener la fecha y el nombre de usuario
             date = tweet['date'].split('T')[0]
             username = tweet["user"]["username"]
             
-            # Update counts
+            # Actualizar los conteos
             date_counts[date] += 1
             user_counts_by_date[date][username] += 1
     
-    # Find the top 10 dates with most tweets
+    # Encontrar las 10 fechas con más tweets
     top_dates = nlargest(10, date_counts.items(), key=lambda x: x[1])
-    
+    # Lista para almacenar las fechas y usuarios con más tweets
     top_dates_users = []
     
-    # Get the user with the most posts per date
+    # Obtener el usuario con más posts por fecha
     for date, _ in top_dates:
         top_user = user_counts_by_date[date].most_common(1)[0][0]
         top_dates_users.append((datetime.strptime(date, "%Y-%m-%d").date(), top_user))
     
-    # Sort by date
+    # Ordenar por fecha en orden descendente
     top_dates_users.sort(key=lambda x: x[0], reverse=True)
     
     return top_dates_users
