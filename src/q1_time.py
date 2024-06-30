@@ -31,7 +31,7 @@ def q1_time(file_path: str) -> List[Tuple[datetime.date, str]]:
         top_user = user_counts_by_date[date].most_common(1)[0][0]
         top_dates_users.append((datetime.strptime(date, "%Y-%m-%d").date(), top_user))
     
-    # Ordenar por fecha en orden descendente
-    top_dates_users.sort(key=lambda x: x[0], reverse=True)
+    # Ordenar por cantidad de tweets en orden descendente
+    top_dates_users.sort(key=lambda x: date_counts[x[0].strftime("%Y-%m-%d")], reverse=True)
     
     return top_dates_users
