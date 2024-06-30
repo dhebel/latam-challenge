@@ -2,10 +2,8 @@ from typing import List, Tuple
 from datetime import datetime
 from collections import Counter, defaultdict
 from heapq import nlargest
-import memory_profiler
 import json
 
-#@memory_profiler.profile
 def q1_time(file_path: str) -> List[Tuple[datetime.date, str]]:
     # Diccionario para almacenar el conteo de tweets por fecha
     date_counts = Counter()

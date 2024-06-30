@@ -2,9 +2,7 @@ from typing import List, Tuple
 from datetime import datetime
 from collections import Counter
 import json
-import memory_profiler
 
-#@memory_profiler.profile
 def q1_memory(file_path: str) -> List[Tuple[datetime.date, str]]:
     # Diccionario para almacenar las fechas y usuarios
     dates = Counter()
